@@ -12,7 +12,7 @@ spec:
      helm:
        valueFiles:
          - values.yml
-         - secrets://roomService-secret-encrypted.yml
+         - secrets://room-service-secret-encrypted.yaml
   destination:
     server: https://kubernetes.default.svc 
     namespace: pgstay             

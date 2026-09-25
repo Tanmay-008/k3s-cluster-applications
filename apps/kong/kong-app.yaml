@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kong-api-gateway
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: 'https://charts.konghq.com'
+      chart: kong/ingress
+      targetRevision: 4.15.1
+      helm:
+        valueFiles:
+          - $values/projects/kong/kong-values.yaml
+
+    - repoURL: 'https://github.com/Tanmay-008/k3s-cluster.git'
+      targetRevision: main
+      ref: values
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kong
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true

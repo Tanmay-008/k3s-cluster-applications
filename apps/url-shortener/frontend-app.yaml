@@ -19,8 +19,8 @@ spec:
     path: projects/url-shortener/frontend
     helm:
       valueFiles:
-        - values.yml
-        - secrets://frontend-secret-encrypted.yml
+        - values.yaml
+        - secrets://frontend-secret-encrypted.yaml
   destination:
     server: https://kubernetes.default.svc 
     namespace: url-shortener             

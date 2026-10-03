@@ -6,11 +6,11 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: 'https://github.com/grafana/k6-operator'
+    - repoURL: 'https://grafana.github.io/helm-charts'
       chart: k6-operator
       targetRevision: 4.6.0
       helm:
-        valueFiles:
+        valueFiles: 
           - $values/projects/grafana/grafana-k6-operator.yaml
           
     - repoURL: 'https://github.com/Tanmay-008/k3s-cluster.git'

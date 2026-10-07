@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1   
+kind: Application                 
+metadata:
+  name: newsverify-frontend           
+  namespace: argocd 
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: newsverify-frontend=tanmay678/newsverify-frontend
+    argocd-image-updater.argoproj.io/newsverify-frontend.update-strategy: semver
+    argocd-image-updater.argoproj.io/newsverify-frontend.allowed-tags: "regexp:^1\\.0\\.[0-9]+$"
+    argocd-image-updater.argoproj.io/newsverify-frontend.helm.image-tag: k3s-apps-chart.image.tag
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:values.yml"
+spec:
+  project: default   
+  source:
+    repoURL: https://github.com/Tanmay-008/k3s-cluster.git
+    targetRevision: main
+    path: projects/newsVerify/frontend
+    helm:
+      valueFiles:
+        - values.yaml
+        - secrets://frontend-secret-encrypted.yaml
+  destination:
+    server: https://kubernetes.default.svc 
+    namespace: newsverify             
+  syncPolicy:                      
+    automated:                     
+      prune: true                  
+      selfHeal: true  
+    syncOptions: 
+      - ApplyOutOfSyncOnly=true 
+      - CreateNamespace=true

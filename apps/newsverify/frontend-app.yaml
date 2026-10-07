@@ -20,7 +20,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-        - secrets://frontend-secret-encrypted.yaml
+        - secrets://frontend-secret-encrypt.yaml
   destination:
     server: https://kubernetes.default.svc 
     namespace: newsverify             

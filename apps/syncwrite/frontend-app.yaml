@@ -4,13 +4,13 @@ metadata:
   name: syncwrite-frontend           
   namespace: argocd 
   annotations:
-    argocd-image-updater.argoproj.io/image-list: syncwrite-frontend=tanmay678/syncwrite-frontend
-    argocd-image-updater.argoproj.io/syncwrite-frontend.update-strategy: semver
-    argocd-image-updater.argoproj.io/syncwrite-frontend.allowed-tags: "regexp:^1\\.0\\.[0-9]+$"
-    argocd-image-updater.argoproj.io/syncwrite-frontend.helm.image-tag: k3s-apps-chart.image.tag
+    argocd-image-updater.argoproj.io/image-list: frontend=tanmay678/syncwrite-frontend
+    argocd-image-updater.argoproj.io/frontend.update-strategy: semver
+    argocd-image-updater.argoproj.io/frontend.allowed-tags: "regexp:^1\\.0\\.[0-9]+$"
+    argocd-image-updater.argoproj.io/frontend.helm.image-tag: k3s-apps-chart.image.tag
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:values.yaml"
+    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:values.yml"
 spec:
   project: default   
   source:

@@ -1,0 +1,39 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: syncwrite-master-updater
+  namespace: argocd 
+spec:
+  # Ye Git Write-back ki setting dono (Frontend aur Backend) par apply hogi
+  writeBackConfig:
+    method: "git:secret:argocd/git-creds"
+    gitConfig:
+      branch: "main"
+      writeBackTarget: "helmvalues:values.yaml"
+
+  # Yahan hum alag-alag microservices define karenge
+  applicationRefs:
+    
+    # --- FRONTEND CONFIGURATION ---
+    - namePattern: "syncwrite-frontend"
+      images:
+        - alias: "frontend"
+          imageName: "tanmay678/syncwrite-frontend"
+          commonUpdateSettings:
+            updateStrategy: "semver"
+            allowTags: "regexp:^1\\.0\\.[0-9]+$"
+          manifestTargets:
+            helm:
+              tag: "k3s-apps-chart.image.tag"
+
+    # --- BACKEND CONFIGURATION ---
+    - namePattern: "syncwrite-backend"
+      images:
+        - alias: "backend"
+          imageName: "tanmay678/syncwrite-backend"
+          commonUpdateSettings:
+            updateStrategy: "semver"
+            allowTags: "regexp:^1\\.0\\.[0-9]+$"
+          manifestTargets:
+            helm:
+              tag: "k3s-apps-chart.image.tag"

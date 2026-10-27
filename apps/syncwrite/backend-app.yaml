@@ -3,14 +3,6 @@ kind: Application
 metadata:
   name: syncwrite-backend           
   namespace: argocd 
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: backend=tanmay678/syncwrite-backend
-    argocd-image-updater.argoproj.io/backend.update-strategy: semver
-    argocd-image-updater.argoproj.io/backend.allowed-tags: "regexp:^1\\.0\\.[0-9]+$"
-    argocd-image-updater.argoproj.io/backend.helm.image-tag: k3s-apps-chart.image.tag
-    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
-    argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/write-back-target: "helmvalues:values.yml"
 spec:
   project: default   
   source:
